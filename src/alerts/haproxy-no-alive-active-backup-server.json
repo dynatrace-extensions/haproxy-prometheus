@@ -1,0 +1,34 @@
+{
+    "metadata": {
+        "configurationVersions": [
+            6
+        ],
+        "clusterVersion": "1.241.9.20220422-123326"
+    },
+    "id": "c1b9c5ed-969a-4d98-ab8c-ad9436224940",
+    "metricId": "com.dynatrace.extension.haproxy-prometheus.backend_active_servers",
+    "name": "HAProxy has no alive active or backup backend server",
+    "description": "The {metricname} value of {severity} was {alert_condition} your custom threshold of {threshold}.",
+    "aggregationType": "AVG",
+    "severity": "CUSTOM_ALERT",
+    "enabled": true,
+    "disabledReason": "NONE",
+    "warningReason": "NONE",
+    "monitoringStrategy": {
+        "type": "STATIC_THRESHOLD",
+        "samples": 5,
+        "violatingSamples": 3,
+        "dealertingSamples": 5,
+        "alertCondition": "BELOW",
+        "alertingOnMissingData": false,
+        "threshold": 1.0,
+        "unit": "UNSPECIFIED"
+    },
+    "alertCondition": "BELOW",
+    "samples": 5,
+    "violatingSamples": 3,
+    "dealertingSamples": 5,
+    "threshold": 1.0,
+    "unit": "UNSPECIFIED",
+    "eventType": "CUSTOM_ALERT"
+}

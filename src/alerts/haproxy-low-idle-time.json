@@ -1,0 +1,32 @@
+{
+  "metadata":{
+    "configurationVersions":[6],
+    "clusterVersion":"1.241.0.20220415-082911"
+  },
+  "id":"1086ffa8-48a4-436f-83bc-896a287fa52c",
+  "metricId":"com.dynatrace.extension.haproxy-prometheus.process_idle_time_percent",
+  "name":"Low HAProxy idle time",
+  "description":"The {metricname} value of {severity} was {alert_condition} your custom threshold of {threshold}.",
+  "aggregationType":"AVG",
+  "severity":"CUSTOM_ALERT",
+  "enabled":true,
+  "disabledReason":"NONE",
+  "warningReason":"NONE",
+  "monitoringStrategy":{
+    "type":"STATIC_THRESHOLD",
+    "samples":5,
+    "violatingSamples":3,
+    "dealertingSamples":5,
+    "alertCondition":"BELOW",
+    "alertingOnMissingData":false,
+    "threshold":10.0,
+    "unit":"PERCENT"
+  },
+  "alertCondition":"BELOW",
+  "samples":5,
+  "violatingSamples":3,
+  "dealertingSamples":5,
+  "threshold":10.0,
+  "unit":"PERCENT",
+  "eventType":"CUSTOM_ALERT"
+}

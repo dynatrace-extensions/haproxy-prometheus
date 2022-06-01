@@ -1,0 +1,2485 @@
+name: custom:com.dynatrace.extension.haproxy-prometheus
+version: 1.0.3
+minDynatraceVersion: "1.230"
+author:
+  name: Dynatrace
+dashboards:
+  - path: "dashboards/haproxy-prometheus.json"
+
+alerts:
+  - path: "alerts/haproxy-backend-session-saturation.json"
+  - path: "alerts/haproxy-frontend-session-saturation.json"
+  - path: "alerts/haproxy-low-idle-time.json"
+  - path: "alerts/haproxy-no-alive-active-backup-server.json"
+
+metrics:
+  - key: com.dynatrace.extension.haproxy-prometheus.process_nbthread
+    metadata:
+      displayName: Started threads
+      description: Number of started threads (global.nbthread)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_nbproc
+    metadata:
+      displayName: Started worker processes
+      description: Number of started worker processes (global.nbproc)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_relative_process_id
+    metadata:
+      displayName: Relative process id
+      description: Relative worker process number (1..Nbproc)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_uptime_seconds
+    metadata:
+      displayName: Uptime
+      description: How long ago this worker process was started (seconds)
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.process_pool_failures_total.count
+    metadata:
+      displayName: Failed pool allocations
+      description: Number of failed pool allocations since this worker was started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_fds
+    metadata:
+      displayName: File descriptors
+      description: Hard limit on the number of per-process file descriptors
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_sockets
+    metadata:
+      displayName: Limit of sockets
+      description: Hard limit on the number of per-process sockets
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_connections
+    metadata:
+      displayName: Limit of connections
+      description: Hard limit on the number of per-process connections (configured or
+        imposed by Ulimit-n)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_hard_max_connections
+    metadata:
+      displayName: Hard limit of connections
+      description: Hard limit on the number of per-process connections (imposed by Memmax_MB
+        or Ulimit-n)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_connections
+    metadata:
+      displayName: Current connections
+      description: Current number of connections on this worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_connections_total.count
+    metadata:
+      displayName: Worker connections
+      description: Total number of connections on this worker process since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_requests_total.count
+    metadata:
+      displayName: Worker requests
+      description: Total number of requests on this worker process since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_ssl_connections
+    metadata:
+      displayName: SSL connections limit
+      description: Hard limit on the number of per-process SSL endpoints (front+back),
+        0=unlimited
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_ssl_connections
+    metadata:
+      displayName: Current SSL connections
+      description: Current number of SSL endpoints on this worker process (front+back)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_ssl_connections_total.count
+    metadata:
+      displayName: SSL connections
+      description: Total number of SSL endpoints on this worker process since started
+        (front+back)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_pipes
+    metadata:
+      displayName: Limit of pipes
+      description: Hard limit on the number of pipes for splicing, 0=unlimited
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_pipes_used_total.count
+    metadata:
+      displayName: Pipes used
+      description: Current number of pipes in use in this worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_pipes_free_total.count
+    metadata:
+      displayName: Available pipes
+      description: Current number of allocated and available pipes in this worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_connection_rate
+    metadata:
+      displayName: Current connection rate
+      description: Number of front connections created on this worker process over the
+        last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_limit_connection_rate
+    metadata:
+      displayName: Limit connection rate
+      description: Hard limit for ConnRate (global.maxconnrate)
+      unit: BytePerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_connection_rate
+    metadata:
+      displayName: Highest connection rate
+      description: Highest ConnRate reached on this worker process since started (in
+        connections per second)
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_session_rate
+    metadata:
+      displayName: Current sessions rate
+      description: Number of sessions created on this worker process over the last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_limit_session_rate
+    metadata:
+      displayName: Limit session rate
+      description: Hard limit for SessRate (global.maxsessrate)
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_session_rate
+    metadata:
+      displayName: Highest session rate
+      description: Highest SessRate reached on this worker process since started (in
+        sessions per second)
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_ssl_rate
+    metadata:
+      displayName: SSL connections rate
+      description: Number of SSL connections created on this worker process over the
+        last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_limit_ssl_rate
+    metadata:
+      displayName: Limit ssl rate
+      description: Hard limit for SslRate (global.maxsslrate)
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_ssl_rate
+    metadata:
+      displayName: Highest ssl rate
+      description: Highest SslRate reached on this worker process since started (in
+        connections per second)
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_frontend_ssl_key_rate
+    metadata:
+      displayName: Frontend SSL key rate
+      description: Number of SSL keys created on frontends in this worker process over
+        the last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_frontend_ssl_key_rate
+    metadata:
+      displayName: Highest frontend Ssl key rate
+      description: Highest SslFrontendKeyRate reached on this worker process since started
+        (in SSL keys per second)
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_frontend_ssl_reuse
+    metadata:
+      displayName: Frontend SSL reuse
+      description: Percent of frontend SSL connections which did not require a new key
+      unit: Percent
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_backend_ssl_key_rate
+    metadata:
+      displayName: Backend SSL key rate
+      description: Number of SSL keys created on backends in this worker process over
+        the last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_backend_ssl_key_rate
+    metadata:
+      displayName: Highest backend Ssl key rate
+      description: Highest SslBackendKeyRate reached on this worker process since started
+        (in SSL keys per second)
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_ssl_cache_lookups_total.count
+    metadata:
+      displayName: SSL sessions ID lookups in cache
+      description: Total number of SSL session ID lookups in the SSL session cache on
+        this worker since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_ssl_cache_misses_total.count
+    metadata:
+      displayName: SSL session ID not found in cache
+      description: Total number of SSL session ID lookups that didn't find a session
+        in the SSL session cache on this worker since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_http_comp_bytes_in_total.count
+    metadata:
+      displayName: HTTP compressor bytes in
+      description: Number of bytes submitted to the HTTP compressor in this worker process
+        over the last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_http_comp_bytes_out_total.count
+    metadata:
+      displayName: HTTP compressor bytes out
+      description: Number of bytes emitted by the HTTP compressor in this worker process
+        over the last second
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_limit_http_comp
+    metadata:
+      displayName: CompressBpsOut limit
+      description: Limit of CompressBpsOut beyond which HTTP compression is automatically
+        disabled
+      unit: BitPerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_zlib_memory
+    metadata:
+      displayName: Currently used memory by HTTP compression
+      description: Amount of memory currently used by HTTP compression on the current
+        worker process (in bytes)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_zlib_memory
+    metadata:
+      displayName: Limit of memory used by HTTP compression
+      description: Limit on the amount of memory used by HTTP compression above which
+        it is automatically disabled (in bytes, see global.maxzlibmem)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_tasks
+    metadata:
+      displayName: Worker current tasks
+      description: Total number of tasks in the current worker process (active + sleeping)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_current_run_queue
+    metadata:
+      displayName: tasks+tasklets
+      description: Total number of active tasks+tasklets in the current worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_idle_time_percent
+    metadata:
+      displayName: Idle time percent
+      description: Percentage of last second spent waiting in the current worker thread
+      unit: Percent
+  - key: com.dynatrace.extension.haproxy-prometheus.process_stopping
+    metadata:
+      displayName: Process stopping 1-true 0-false
+      description: 1 if the worker process is currently stopping, otherwise zero
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.process_jobs
+    metadata:
+      displayName: Active jobs
+      description: Current number of active jobs on the current worker process (frontend
+        connections, master connections, listeners)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_unstoppable_jobs
+    metadata:
+      displayName: Unstoppable jobs
+      description: Current number of unstoppable jobs on the current worker process
+        (master connections)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_listeners
+    metadata:
+      displayName: Active listeners
+      description: Current number of active listeners on the current worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_active_peers
+    metadata:
+      displayName: Active peers
+      description: Current number of verified active peers connections on the current
+        worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_connected_peers
+    metadata:
+      displayName: Connected peers
+      description: Current number of peers having passed the connection step on the
+        current worker process
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_dropped_logs_total.count
+    metadata:
+      displayName: Dropped logs
+      description: Total number of dropped logs for current worker process since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_busy_polling_enabled
+    metadata:
+      displayName: Busy polling 1-enabled 0-disabled
+      description: 1 if busy-polling is currently in use on the worker process, otherwise
+        zero (config.busy-polling)
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.process_failed_resolutions.count
+    metadata:
+      displayName: Failed DNS resolutions
+      description: Total number of failed DNS resolutions in current worker process
+        since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_bytes_out_total.count
+    metadata:
+      displayName: Bytes out
+      description: Total number of bytes emitted by current worker process since started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_spliced_bytes_out_total.count
+    metadata:
+      displayName: Bytes out through kernel pipe
+      description: Total number of bytes emitted by current worker process through a
+        kernel pipe since started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_bytes_out_rate
+    metadata:
+      displayName: Bytes out rate
+      description: Number of bytes emitted by current worker process over the last second
+      unit: BytePerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.process_recv_logs_total.count
+    metadata:
+      displayName: Received logs
+      description: Total number of log messages received by log-forwarding listeners
+        on this worker process since started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.process_build_info
+    metadata:
+      displayName: Build info
+      description: Build info
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.process_max_memory_bytes
+    metadata:
+      displayName: Hard limit on memory usage in bytes
+      description: Worker process's hard limit on memory usage in bytes (-m on command
+        line)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_pool_allocated_bytes
+    metadata:
+      displayName: Memory allocated in pools
+      description: Amount of memory allocated in pools (in bytes)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_pool_used_bytes
+    metadata:
+      displayName: Pool memory used
+      description: Amount of pool memory currently used (in bytes)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.process_start_time_seconds
+    metadata:
+      displayName: Start time
+      description: Start time in seconds
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_current_sessions
+    metadata:
+      displayName: Current frontend sessions
+      description: Number of current sessions on the frontend, backend or server
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_max_sessions
+    metadata:
+      displayName: Highest frontend current sessions
+      description: Highest value of current sessions encountered since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_limit_sessions
+    metadata:
+      displayName: Frontend limit sessions
+      description: Frontend/listener/server's maxconn, backend's fullconn
+      unit: Count
+  - key: func:com.dynatrace.extension.haproxy-prometheus.frontend_sessions_saturation
+    query:
+      metricSelector: '(com.dynatrace.extension.haproxy-prometheus.frontend_current_sessions) / (com.dynatrace.extension.haproxy-prometheus.frontend_limit_sessions) * (100)'
+    metadata:
+      displayName: Frontend Session Saturation
+      description: Calculated metric, result of operation (frontend_current_sessions / frontend_limit_sessions) * 100
+      unit: Percent
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_sessions_total.count
+    metadata:
+      displayName: Frontend sessions
+      description: Total number of sessions since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_bytes_in_total.count
+    metadata:
+      displayName: Frontend bytes in
+      description: Total number of request bytes since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_bytes_out_total.count
+    metadata:
+      displayName: Frontend bytes out
+      description: Total number of response bytes since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_requests_denied_total.count
+    metadata:
+      displayName: Frontend denied requests
+      description: Total number of denied requests since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_responses_denied_total.count
+    metadata:
+      displayName: Frontend denied responses
+      description: Total number of denied responses since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_request_errors_total.count
+    metadata:
+      displayName: Frontend requests errors
+      description: Total number of invalid requests since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_status
+    metadata:
+      displayName: Frontend service status
+      description: Current status of the service, per state label value.
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_limit_session_rate
+    metadata:
+      displayName: Frontend limit sessions rate
+      description: Limit on the number of sessions accepted in a second (frontend only,
+        'rate-limit sessions' setting)
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_max_session_rate
+    metadata:
+      displayName: Highest frontend session rate
+      description: Highest value of sessions per second observed since the worker process
+        started
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_responses_total.count
+    metadata:
+      displayName: Frontend HTTP responses
+      description: Total number of HTTP responses with status 100-199 returned by this
+        object since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_rate_max
+    metadata:
+      displayName: Highest frontend HTTP requests
+      description: Highest value of http requests observed since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_total.count
+    metadata:
+      displayName: Frontend HTTP requests
+      description: Total number of HTTP requests processed by this object since the
+        worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_in_total.count
+    metadata:
+      displayName: Frontend HTTP compressor bytes in
+      description: Total number of bytes submitted to the HTTP compressor for this object
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_out_total.count
+    metadata:
+      displayName: Frontend HTTP compressor bytes out
+      description: Total number of bytes emitted by the HTTP compressor for this object
+        since the worker process started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_bypassed_total.count
+    metadata:
+      displayName: Frontend HTTP compressor bytes bypassed
+      description: Total number of bytes that bypassed HTTP compression for this object
+        since the worker process started (CPU/memory/bandwidth limitation)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_responses_total.count
+    metadata:
+      displayName: Frontend HTTP compressed responses
+      description: Total number of HTTP responses that were compressed for this object
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_connections_rate_max
+    metadata:
+      displayName: Frontend connections rate max
+      description: Highest value of connections per second observed since the worker
+        process started
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_connections_total.count
+    metadata:
+      displayName: Frontend new connections
+      description: Total number of new connections accepted on this frontend since the
+        worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_intercepted_requests_total.count
+    metadata:
+      displayName: Frontend HTTP request intercepted
+      description: Total number of HTTP requests intercepted on the frontend (redirects/stats/services)
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_denied_connections_total.count
+    metadata:
+      displayName: Frontend denied connections
+      description: Total number of incoming connections blocked on a listener/frontend
+        by a tcp-request connection rule since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_denied_sessions_total.count
+    metadata:
+      displayName: Frontend denied sessions
+      description: Total number of incoming sessions blocked on a listener/frontend
+        by a tcp-request connection rule since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_failed_header_rewriting_total.count
+    metadata:
+      displayName: Frontend failed HTTP header rewrites
+      description: Total number of failed HTTP header rewrites since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_cache_lookups_total.count
+    metadata:
+      displayName: Frontend HTTP requests looked up in the cache
+      description: Total number of HTTP requests looked up in the cache on this frontend/backend
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_cache_hits_total.count
+    metadata:
+      displayName: Frontend HTTP requests not found in the cache
+      description: Total number of HTTP requests not found in the cache on this frontend/backend
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.frontend_internal_errors_total.count
+    metadata:
+      displayName: Frontend internal errors
+      description: Total number of internal errors since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_current_queue
+    metadata:
+      displayName: Backend current queued connections
+      description: Number of current queued connections
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_queue
+    metadata:
+      displayName: Backend highest queued connections
+      description: Highest value of queued connections encountered since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_current_sessions
+    metadata:
+      displayName: Backend current sessions
+      description: Number of current sessions on the frontend, backend or server
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_sessions
+    metadata:
+      displayName: Backend highest sessions
+      description: Highest value of current sessions encountered since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_limit_sessions
+    metadata:
+      displayName: Backend limit sessions
+      description: Frontend/listener/server's maxconn, backend's fullconn
+      unit: Count
+  - key: func:com.dynatrace.extension.haproxy-prometheus.backend_sessions_saturation
+    query:
+      metricSelector: '(com.dynatrace.extension.haproxy-prometheus.backend_current_sessions) / (com.dynatrace.extension.haproxy-prometheus.backend_limit_sessions) * (100)'
+    metadata:
+      displayName: Backend Session Saturation
+      description: Calculated metric, result of operation (backend_current_sessions / backend_limit_sessions) * 100
+      unit: Percent
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_sessions_total.count
+    metadata:
+      displayName: Backend sessions
+      description: Total number of sessions since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_bytes_in_total.count
+    metadata:
+      displayName: Backend bytes in
+      description: Total number of request bytes since process started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_bytes_out_total.count
+    metadata:
+      displayName: Backend bytes out
+      description: Total number of response bytes since process started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_requests_denied_total.count
+    metadata:
+      displayName: Backend requests denied
+      description: Total number of denied requests since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_responses_denied_total.count
+    metadata:
+      displayName: Backend responses denied
+      description: Total number of denied responses since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_connection_errors_total.count
+    metadata:
+      displayName: Backend connections errors
+      description: Total number of failed connections to server since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_response_errors_total.count
+    metadata:
+      displayName: Backend responses errors
+      description: Total number of invalid responses since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_retry_warnings_total.count
+    metadata:
+      displayName: Backend server connection retries
+      description: Total number of server connection retries since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_redispatch_warnings_total.count
+    metadata:
+      displayName: Backend redispatch warnings
+      description: Total number of server redispatches due to connection failures since
+        the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_status
+    metadata:
+      displayName: Backend current status
+      description: Current status of the service, per state label value.
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_weight
+    metadata:
+      displayName: Backend weight
+      description: Server's effective weight, or sum of active servers' effective weights
+        for a backend
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_active_servers
+    metadata:
+      displayName: Backend active servers
+      description: Total number of active UP servers with a non-zero weight
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_backup_servers
+    metadata:
+      displayName: Backend backup servers
+      description: Total number of backup UP servers with a non-zero weight
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_check_up_down_total.count
+    metadata:
+      displayName: Backend check up down
+      description: Total number of failed checks causing UP to DOWN server transitions,
+        per server/backend, since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_check_last_change_seconds
+    metadata:
+      displayName: Backend check last change
+      description: How long ago the last server state changed, in seconds
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_downtime_seconds_total.count
+    metadata:
+      displayName: Backend downtime seconds
+      description: Total time spent in DOWN state, for server or backend
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_loadbalanced_total.count
+    metadata:
+      displayName: Backend loadbalanced
+      description: Total number of requests routed by load balancing since the worker
+        process started (ignores queue pop and stickiness)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_session_rate
+    metadata:
+      displayName: Backend highest sessions rate
+      description: Highest value of sessions per second observed since the worker process
+        started
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count
+    metadata:
+      displayName: Backend HTTP responses
+      description: Total number of HTTP responses with status 100-199 returned by this
+        object since the worker process started
+      unit: Count
+  - key: func:com.dynatrace.extension.haproxy-prometheus.backend_http_4xx_rate
+    query:
+      metricSelector: '(com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count:filter(and(eq(code,"4xx"))):splitBy(device):sum) / (com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count:splitBy(device):sum) * (100)'
+    metadata:
+      displayName: HTTP 4xx rate
+      description: Percentage of HTTP 4xx code in HTTP responses total
+      unit: Percent
+  - key: func:com.dynatrace.extension.haproxy-prometheus.backend_http_5xx_rate
+    query:
+      metricSelector: '(com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count:filter(and(eq(code,"5xx"))):splitBy(device):sum) / (com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count:splitBy(device):sum) * (100)'
+    metadata:
+      displayName: HTTP 5xx rate
+      description: Percentage of HTTP 5xx code in HTTP responses total
+      unit: Percent
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_requests_total.count
+    metadata:
+      displayName: Backend HTTP requests
+      description: Total number of HTTP requests processed by this object since the
+        worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_client_aborts_total.count
+    metadata:
+      displayName: Backend client aborts
+      description: Total number of requests or connections aborted by the client since
+        the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_server_aborts_total.count
+    metadata:
+      displayName: Backend server aborts
+      description: Total number of requests or connections aborted by the server since
+        the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_in_total.count
+    metadata:
+      displayName: Backend HTTP compressor bytes in
+      description: Total number of bytes submitted to the HTTP compressor for this object
+        since the worker process started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_out_total.count
+    metadata:
+      displayName: Backend HTTP compressor bytes out
+      description: Total number of bytes emitted by the HTTP compressor for this object
+        since the worker process started
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_bypassed_total.count
+    metadata:
+      displayName: Backend HTTP compressor bytes bypassed
+      description: Total number of bytes that bypassed HTTP compression for this object
+        since the worker process started (CPU/memory/bandwidth limitation)
+      unit: Byte
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_responses_total.count
+    metadata:
+      displayName: Backend HTTP compressed responses
+      description: Total number of HTTP responses that were compressed for this object
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_last_session_seconds
+    metadata:
+      displayName: Backend last session
+      description: How long ago some traffic was seen on this object on this worker
+        process, in seconds
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_queue_time_average_seconds
+    metadata:
+      displayName: Backend avg. queue time
+      description: Avg. queue time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_connect_time_average_seconds
+    metadata:
+      displayName: Backend avg. connect time
+      description: Avg. connect time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_response_time_average_seconds
+    metadata:
+      displayName: Backend avg. response time
+      description: Avg. response time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_total_time_average_seconds
+    metadata:
+      displayName: Backend avg. total time
+      description: Avg. total time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_failed_header_rewriting_total.count
+    metadata:
+      displayName: Backend failed HTTP header rewrites
+      description: Total number of failed HTTP header rewrites since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_connection_attempts_total.count
+    metadata:
+      displayName: Backend connection attempts
+      description: Total number of outgoing connection attempts on this backend/server
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_connection_reuses_total.count
+    metadata:
+      displayName: Backend connection reuses
+      description: Total number of reused connection on this backend/server since the
+        worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_cache_lookups_total.count
+    metadata:
+      displayName: Backend HTTP requests looked up in cache
+      description: Total number of HTTP requests looked up in the cache on this frontend/backend
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_http_cache_hits_total.count
+    metadata:
+      displayName: Backend HTTP requests not found in cache
+      description: Total number of HTTP requests not found in the cache on this frontend/backend
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_queue_time_seconds
+    metadata:
+      displayName: Backend max queue time
+      description: Maximum observed time spent in the queue
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_connect_time_seconds
+    metadata:
+      displayName: Backend max connection time
+      description: Maximum observed time spent waiting for a connection to complete
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_response_time_seconds
+    metadata:
+      displayName: Backend max response time
+      description: Maximum observed time spent waiting for a server response
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_max_total_time_seconds
+    metadata:
+      displayName: Backend max request+response time
+      description: Maximum observed total request+response time (request+queue+connect+response+processing)
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_internal_errors_total.count
+    metadata:
+      displayName: Backend internal errors
+      description: Total number of internal errors since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_uweight
+    metadata:
+      displayName: Backend user weight
+      description: Server's user weight, or sum of active servers' user weights for
+        a backend
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.backend_agg_server_check_status
+    metadata:
+      displayName: Backend aggregated server check status
+      description: Backend's aggregated gauge of servers' state check status
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.server_current_queue
+    metadata:
+      displayName: Server current queued connections
+      description: Number of current queued connections
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_queue
+    metadata:
+      displayName: Server highest queued connections
+      description: Highest value of queued connections encountered since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_current_sessions
+    metadata:
+      displayName: Server current sessions
+      description: Number of current sessions on the frontend, backend or server
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_sessions
+    metadata:
+      displayName: Server highest current sessions
+      description: Highest value of current sessions encountered since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_limit_sessions
+    metadata:
+      displayName: Server limit sessions
+      description: Frontend/listener/server's maxconn, backend's fullconn
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_sessions_total.count
+    metadata:
+      displayName: Server sessions
+      description: Total number of sessions since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_bytes_in_total.count
+    metadata:
+      displayName: Server bytes in
+      description: Total number of request bytes since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_bytes_out_total.count
+    metadata:
+      displayName: Server bytes out
+      description: Total number of response bytes since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_responses_denied_total.count
+    metadata:
+      displayName: Server denied responses
+      description: Total number of denied responses since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_connection_errors_total.count
+    metadata:
+      displayName: Server connections errors
+      description: Total number of failed connections to server since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_response_errors_total.count
+    metadata:
+      displayName: Server responses errors
+      description: Total number of invalid responses since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_retry_warnings_total.count
+    metadata:
+      displayName: Server connection retries
+      description: Total number of server connection retries since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_redispatch_warnings_total.count
+    metadata:
+      displayName: Server redispatch warnings
+      description: Total number of server redispatches due to connection failures since
+        the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_status
+    metadata:
+      displayName: Server status
+      description: Current status of the service, per state label value.
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.server_weight
+    metadata:
+      displayName: Server weight
+      description: Server's effective weight, or sum of active servers' effective weights
+        for a backend
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.server_check_failures_total.count
+    metadata:
+      displayName: Server check failures
+      description: Total number of failed individual health checks per server/backend,
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_check_up_down_total.count
+    metadata:
+      displayName: Server check up down
+      description: Total number of failed checks causing UP to DOWN server transitions,
+        per server/backend, since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_check_last_change_seconds
+    metadata:
+      displayName: Server last state change
+      description: How long ago the last server state changed, in seconds
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_downtime_seconds_total.count
+    metadata:
+      displayName: Server downtime
+      description: Total time spent in DOWN state, for server or backend
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_queue_limit
+    metadata:
+      displayName: Server queue limit
+      description: Limit on the number of connections in queue, for servers only (maxqueue
+        argument)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_current_throttle
+    metadata:
+      displayName: Server current throttle
+      description: Throttling ratio applied to a server's maxconn and weight during
+        the slowstart period (0 to 100%)
+      unit: Percent
+  - key: com.dynatrace.extension.haproxy-prometheus.server_loadbalanced_total.count
+    metadata:
+      displayName: Server loadbalanced
+      description: Total number of requests routed by load balancing since the worker
+        process started (ignores queue pop and stickiness)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_session_rate
+    metadata:
+      displayName: Server highest sessions rate
+      description: Highest value of sessions per second observed since the worker process
+        started
+      unit: PerSecond
+  - key: com.dynatrace.extension.haproxy-prometheus.server_check_status
+    metadata:
+      displayName: Server check status
+      description: Status of last health check, per state label value.
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.server_check_code
+    metadata:
+      displayName: Server check code
+      description: layer5-7 code, if available of the last health check.
+      unit: Unspecified
+  - key: com.dynatrace.extension.haproxy-prometheus.server_check_duration_seconds
+    metadata:
+      displayName: Server latest check duration
+      description: Total duration of the latest server health check, in seconds.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_http_responses_total.count
+    metadata:
+      displayName: Server HTTP responses
+      description: Total number of HTTP responses with status 100-199 returned by this
+        object since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_client_aborts_total.count
+    metadata:
+      displayName: Server client aborts
+      description: Total number of requests or connections aborted by the client since
+        the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_server_aborts_total.count
+    metadata:
+      displayName: Server server aborts
+      description: Total number of requests or connections aborted by the server since
+        the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_last_session_seconds
+    metadata:
+      displayName: Server last session
+      description: How long ago some traffic was seen on this object on this worker
+        process, in seconds
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_queue_time_average_seconds
+    metadata:
+      displayName: Server avg. queue time
+      description: Avg. queue time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_connect_time_average_seconds
+    metadata:
+      displayName: Server avg. connect time
+      description: Avg. connect time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_response_time_average_seconds
+    metadata:
+      displayName: Server avg. response time
+      description: Avg. response time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_total_time_average_seconds
+    metadata:
+      displayName: Server avg. time
+      description: Avg. total time for last 1024 successful connections.
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_failed_header_rewriting_total.count
+    metadata:
+      displayName: Server failed header rewriting
+      description: Total number of failed HTTP header rewrites since the worker process
+        started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_connection_attempts_total.count
+    metadata:
+      displayName: Server connection attempts
+      description: Total number of outgoing connection attempts on this backend/server
+        since the worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_connection_reuses_total.count
+    metadata:
+      displayName: Server connection reuses
+      description: Total number of reused connection on this backend/server since the
+        worker process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_idle_connections_current
+    metadata:
+      displayName: Server current idle connections
+      description: Current number of idle connections available for reuse on this server
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_idle_connections_limit
+    metadata:
+      displayName: Server idle connections limit
+      description: Limit on the number of available idle connections on this server
+        (server 'pool_max_conn' directive)
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_queue_time_seconds
+    metadata:
+      displayName: Server max queue time
+      description: Maximum observed time spent in the queue
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_connect_time_seconds
+    metadata:
+      displayName: Server max connection time
+      description: Maximum observed time spent waiting for a connection to complete
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_response_time_seconds
+    metadata:
+      displayName: Server max response time
+      description: Maximum observed time spent waiting for a server response
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_max_total_time_seconds
+    metadata:
+      displayName: Server max request+response time
+      description: Maximum observed total request+response time (request+queue+connect+response+processing)
+      unit: Second
+  - key: com.dynatrace.extension.haproxy-prometheus.server_internal_errors_total.count
+    metadata:
+      displayName: Server internal errors
+      description: Total number of internal errors since process started
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_unsafe_idle_connections_current
+    metadata:
+      displayName: Server current unsafe idle connections
+      description: Current number of unsafe idle connections
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_safe_idle_connections_current
+    metadata:
+      displayName: Server current safe idle connections
+      description: Current number of safe idle connections
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_used_connections_current
+    metadata:
+      displayName: Server current used connections
+      description: Current number of connections in use
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_need_connections_current
+    metadata:
+      displayName: Server needed connections
+      description: Estimated needed number of connections
+      unit: Count
+  - key: com.dynatrace.extension.haproxy-prometheus.server_uweight
+    metadata:
+      displayName: Server user weight
+      description: Server's user weight, or sum of active servers' user weights for
+        a backend
+      unit: Count
+
+prometheus:
+  - group: haproxy metrics
+    interval: 1m
+    featureSet: all
+    subgroups:
+      - subgroup: haproxy process
+        metrics:
+          - key: com.dynatrace.extension.haproxy-prometheus.process_nbthread
+            type: gauge
+            value: metric:haproxy_process_nbthread
+          - key: com.dynatrace.extension.haproxy-prometheus.process_nbproc
+            type: gauge
+            value: metric:haproxy_process_nbproc
+          - key: com.dynatrace.extension.haproxy-prometheus.process_relative_process_id
+            type: gauge
+            value: metric:haproxy_process_relative_process_id
+          - key: com.dynatrace.extension.haproxy-prometheus.process_uptime_seconds
+            type: gauge
+            value: metric:haproxy_process_uptime_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.process_pool_failures_total.count
+            type: count
+            value: metric:haproxy_process_pool_failures_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_fds
+            type: gauge
+            value: metric:haproxy_process_max_fds
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_sockets
+            type: gauge
+            value: metric:haproxy_process_max_sockets
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_connections
+            type: gauge
+            value: metric:haproxy_process_max_connections
+          - key: com.dynatrace.extension.haproxy-prometheus.process_hard_max_connections
+            type: gauge
+            value: metric:haproxy_process_hard_max_connections
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_connections
+            type: gauge
+            value: metric:haproxy_process_current_connections
+          - key: com.dynatrace.extension.haproxy-prometheus.process_connections_total.count
+            type: count
+            value: metric:haproxy_process_connections_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_requests_total.count
+            type: count
+            value: metric:haproxy_process_requests_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_ssl_connections
+            type: gauge
+            value: metric:haproxy_process_max_ssl_connections
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_ssl_connections
+            type: gauge
+            value: metric:haproxy_process_current_ssl_connections
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_ssl_connections_total.count
+            type: count
+            value: metric:haproxy_process_ssl_connections_total
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_pipes
+            type: gauge
+            value: metric:haproxy_process_max_pipes
+          - key: com.dynatrace.extension.haproxy-prometheus.process_pipes_used_total.count
+            type: count
+            value: metric:haproxy_process_pipes_used_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_pipes_free_total.count
+            type: count
+            value: metric:haproxy_process_pipes_free_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_connection_rate
+            type: gauge
+            value: metric:haproxy_process_current_connection_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_limit_connection_rate
+            type: gauge
+            value: metric:haproxy_process_limit_connection_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_connection_rate
+            type: gauge
+            value: metric:haproxy_process_max_connection_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_session_rate
+            type: gauge
+            value: metric:haproxy_process_current_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_limit_session_rate
+            type: gauge
+            value: metric:haproxy_process_limit_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_session_rate
+            type: gauge
+            value: metric:haproxy_process_max_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_ssl_rate
+            type: gauge
+            value: metric:haproxy_process_current_ssl_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_limit_ssl_rate
+            type: gauge
+            value: metric:haproxy_process_limit_ssl_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_ssl_rate
+            type: gauge
+            value: metric:haproxy_process_max_ssl_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_frontend_ssl_key_rate
+            type: gauge
+            value: metric:haproxy_process_current_frontend_ssl_key_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_frontend_ssl_key_rate
+            type: gauge
+            value: metric:haproxy_process_max_frontend_ssl_key_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_frontend_ssl_reuse
+            type: gauge
+            value: metric:haproxy_process_frontend_ssl_reuse
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_backend_ssl_key_rate
+            type: gauge
+            value: metric:haproxy_process_current_backend_ssl_key_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_backend_ssl_key_rate
+            type: gauge
+            value: metric:haproxy_process_max_backend_ssl_key_rate
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_ssl_cache_lookups_total.count
+            type: count
+            value: metric:haproxy_process_ssl_cache_lookups_total
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_ssl_cache_misses_total.count
+            type: count
+            value: metric:haproxy_process_ssl_cache_misses_total
+            featureSet: process_ssl
+          - key: com.dynatrace.extension.haproxy-prometheus.process_http_comp_bytes_in_total.count
+            type: count
+            value: metric:haproxy_process_http_comp_bytes_in_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.process_http_comp_bytes_out_total.count
+            type: count
+            value: metric:haproxy_process_http_comp_bytes_out_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.process_limit_http_comp
+            type: gauge
+            value: metric:haproxy_process_limit_http_comp
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_zlib_memory
+            type: gauge
+            value: metric:haproxy_process_current_zlib_memory
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_zlib_memory
+            type: gauge
+            value: metric:haproxy_process_max_zlib_memory
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_tasks
+            type: gauge
+            value: metric:haproxy_process_current_tasks
+          - key: com.dynatrace.extension.haproxy-prometheus.process_current_run_queue
+            type: gauge
+            value: metric:haproxy_process_current_run_queue
+          - key: com.dynatrace.extension.haproxy-prometheus.process_idle_time_percent
+            type: gauge
+            value: metric:haproxy_process_idle_time_percent
+          - key: com.dynatrace.extension.haproxy-prometheus.process_stopping
+            type: gauge
+            value: metric:haproxy_process_stopping
+          - key: com.dynatrace.extension.haproxy-prometheus.process_jobs
+            type: gauge
+            value: metric:haproxy_process_jobs
+          - key: com.dynatrace.extension.haproxy-prometheus.process_unstoppable_jobs
+            type: gauge
+            value: metric:haproxy_process_unstoppable_jobs
+          - key: com.dynatrace.extension.haproxy-prometheus.process_listeners
+            type: gauge
+            value: metric:haproxy_process_listeners
+          - key: com.dynatrace.extension.haproxy-prometheus.process_active_peers
+            type: gauge
+            value: metric:haproxy_process_active_peers
+          - key: com.dynatrace.extension.haproxy-prometheus.process_connected_peers
+            type: gauge
+            value: metric:haproxy_process_connected_peers
+          - key: com.dynatrace.extension.haproxy-prometheus.process_dropped_logs_total.count
+            type: count
+            value: metric:haproxy_process_dropped_logs_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_busy_polling_enabled
+            type: gauge
+            value: metric:haproxy_process_busy_polling_enabled
+          - key: com.dynatrace.extension.haproxy-prometheus.process_failed_resolutions.count
+            type: count
+            value: metric:haproxy_process_failed_resolutions
+          - key: com.dynatrace.extension.haproxy-prometheus.process_bytes_out_total.count
+            type: count
+            value: metric:haproxy_process_bytes_out_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_spliced_bytes_out_total.count
+            type: count
+            value: metric:haproxy_process_spliced_bytes_out_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_bytes_out_rate
+            type: gauge
+            value: metric:haproxy_process_bytes_out_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.process_recv_logs_total.count
+            type: count
+            value: metric:haproxy_process_recv_logs_total
+          - key: com.dynatrace.extension.haproxy-prometheus.process_build_info
+            type: gauge
+            value: metric:haproxy_process_build_info
+          - key: com.dynatrace.extension.haproxy-prometheus.process_max_memory_bytes
+            type: gauge
+            value: metric:haproxy_process_max_memory_bytes
+          - key: com.dynatrace.extension.haproxy-prometheus.process_pool_allocated_bytes
+            type: gauge
+            value: metric:haproxy_process_pool_allocated_bytes
+          - key: com.dynatrace.extension.haproxy-prometheus.process_pool_used_bytes
+            type: gauge
+            value: metric:haproxy_process_pool_used_bytes
+          - key: com.dynatrace.extension.haproxy-prometheus.process_start_time_seconds
+            type: gauge
+            value: metric:haproxy_process_start_time_seconds
+      - subgroup: haproxy frontend
+        metrics:
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_current_sessions
+            type: gauge
+            value: metric:haproxy_frontend_current_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_limit_sessions
+            type: gauge
+            value: metric:haproxy_frontend_limit_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_sessions_total.count
+            type: count
+            value: metric:haproxy_frontend_sessions_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_bytes_in_total.count
+            type: count
+            value: metric:haproxy_frontend_bytes_in_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_bytes_out_total.count
+            type: count
+            value: metric:haproxy_frontend_bytes_out_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_requests_denied_total.count
+            type: count
+            value: metric:haproxy_frontend_requests_denied_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_responses_denied_total.count
+            type: count
+            value: metric:haproxy_frontend_responses_denied_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_request_errors_total.count
+            type: count
+            value: metric:haproxy_frontend_request_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_status
+            type: gauge
+            value: metric:haproxy_frontend_status
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_limit_session_rate
+            type: gauge
+            value: metric:haproxy_frontend_limit_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_max_session_rate
+            type: gauge
+            value: metric:haproxy_frontend_max_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_responses_total.count
+            type: count
+            value: metric:haproxy_frontend_http_responses_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_rate_max
+            type: gauge
+            value: metric:haproxy_frontend_http_requests_rate_max
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_total.count
+            type: count
+            value: metric:haproxy_frontend_http_requests_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_in_total.count
+            type: count
+            value: metric:haproxy_frontend_http_comp_bytes_in_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_out_total.count
+            type: count
+            value: metric:haproxy_frontend_http_comp_bytes_out_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_bypassed_total.count
+            type: count
+            value: metric:haproxy_frontend_http_comp_bytes_bypassed_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_responses_total.count
+            type: count
+            value: metric:haproxy_frontend_http_comp_responses_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_connections_rate_max
+            type: gauge
+            value: metric:haproxy_frontend_connections_rate_max
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_connections_total.count
+            type: count
+            value: metric:haproxy_frontend_connections_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_intercepted_requests_total.count
+            type: count
+            value: metric:haproxy_frontend_intercepted_requests_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_denied_connections_total.count
+            type: count
+            value: metric:haproxy_frontend_denied_connections_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_denied_sessions_total.count
+            type: count
+            value: metric:haproxy_frontend_denied_sessions_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_failed_header_rewriting_total.count
+            type: count
+            value: metric:haproxy_frontend_failed_header_rewriting_total
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_cache_lookups_total.count
+            type: count
+            value: metric:haproxy_frontend_http_cache_lookups_total
+            featureSet: cache
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_http_cache_hits_total.count
+            type: count
+            value: metric:haproxy_frontend_http_cache_hits_total
+            featureSet: cache
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_internal_errors_total.count
+            type: count
+            value: metric:haproxy_frontend_internal_errors_total
+      - subgroup: haproxy backend
+        metrics:
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_current_queue
+            type: gauge
+            value: metric:haproxy_backend_current_queue
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_queue
+            type: gauge
+            value: metric:haproxy_backend_max_queue
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_current_sessions
+            type: gauge
+            value: metric:haproxy_backend_current_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_sessions
+            type: gauge
+            value: metric:haproxy_backend_max_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_limit_sessions
+            type: gauge
+            value: metric:haproxy_backend_limit_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_sessions_total.count
+            type: count
+            value: metric:haproxy_backend_sessions_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_bytes_in_total.count
+            type: count
+            value: metric:haproxy_backend_bytes_in_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_bytes_out_total.count
+            type: count
+            value: metric:haproxy_backend_bytes_out_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_requests_denied_total.count
+            type: count
+            value: metric:haproxy_backend_requests_denied_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_responses_denied_total.count
+            type: count
+            value: metric:haproxy_backend_responses_denied_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_connection_errors_total.count
+            type: count
+            value: metric:haproxy_backend_connection_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_response_errors_total.count
+            type: count
+            value: metric:haproxy_backend_response_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_retry_warnings_total.count
+            type: count
+            value: metric:haproxy_backend_retry_warnings_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_redispatch_warnings_total.count
+            type: count
+            value: metric:haproxy_backend_redispatch_warnings_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_status
+            type: gauge
+            value: metric:haproxy_backend_status
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_weight
+            type: gauge
+            value: metric:haproxy_backend_weight
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_active_servers
+            type: gauge
+            value: metric:haproxy_backend_active_servers
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_backup_servers
+            type: gauge
+            value: metric:haproxy_backend_backup_servers
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_check_up_down_total.count
+            type: count
+            value: metric:haproxy_backend_check_up_down_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_check_last_change_seconds
+            type: gauge
+            value: metric:haproxy_backend_check_last_change_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_downtime_seconds_total.count
+            type: count
+            value: metric:haproxy_backend_downtime_seconds_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_loadbalanced_total.count
+            type: count
+            value: metric:haproxy_backend_loadbalanced_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_session_rate
+            type: gauge
+            value: metric:haproxy_backend_max_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count
+            type: count
+            value: metric:haproxy_backend_http_responses_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_requests_total.count
+            type: count
+            value: metric:haproxy_backend_http_requests_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_client_aborts_total.count
+            type: count
+            value: metric:haproxy_backend_client_aborts_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_server_aborts_total.count
+            type: count
+            value: metric:haproxy_backend_server_aborts_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_in_total.count
+            type: count
+            value: metric:haproxy_backend_http_comp_bytes_in_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_out_total.count
+            type: count
+            value: metric:haproxy_backend_http_comp_bytes_out_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_bypassed_total.count
+            type: count
+            value: metric:haproxy_backend_http_comp_bytes_bypassed_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_comp_responses_total.count
+            type: count
+            value: metric:haproxy_backend_http_comp_responses_total
+            featureSet: compression
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_last_session_seconds
+            type: gauge
+            value: metric:haproxy_backend_last_session_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_queue_time_average_seconds
+            type: gauge
+            value: metric:haproxy_backend_queue_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_connect_time_average_seconds
+            type: gauge
+            value: metric:haproxy_backend_connect_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_response_time_average_seconds
+            type: gauge
+            value: metric:haproxy_backend_response_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_total_time_average_seconds
+            type: gauge
+            value: metric:haproxy_backend_total_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_failed_header_rewriting_total.count
+            type: count
+            value: metric:haproxy_backend_failed_header_rewriting_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_connection_attempts_total.count
+            type: count
+            value: metric:haproxy_backend_connection_attempts_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_connection_reuses_total.count
+            type: count
+            value: metric:haproxy_backend_connection_reuses_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_cache_lookups_total.count
+            type: count
+            value: metric:haproxy_backend_http_cache_lookups_total
+            featureSet: cache
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_http_cache_hits_total.count
+            type: count
+            value: metric:haproxy_backend_http_cache_hits_total
+            featureSet: cache
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_queue_time_seconds
+            type: gauge
+            value: metric:haproxy_backend_max_queue_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_connect_time_seconds
+            type: gauge
+            value: metric:haproxy_backend_max_connect_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_response_time_seconds
+            type: gauge
+            value: metric:haproxy_backend_max_response_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_max_total_time_seconds
+            type: gauge
+            value: metric:haproxy_backend_max_total_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_internal_errors_total.count
+            type: count
+            value: metric:haproxy_backend_internal_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_uweight
+            type: gauge
+            value: metric:haproxy_backend_uweight
+          - key: com.dynatrace.extension.haproxy-prometheus.backend_agg_server_check_status
+            type: gauge
+            value: metric:haproxy_backend_agg_server_check_status
+      - subgroup: haproxy server
+        metrics:
+          - key: com.dynatrace.extension.haproxy-prometheus.server_current_queue
+            type: gauge
+            value: metric:haproxy_server_current_queue
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_queue
+            type: gauge
+            value: metric:haproxy_server_max_queue
+          - key: com.dynatrace.extension.haproxy-prometheus.server_current_sessions
+            type: gauge
+            value: metric:haproxy_server_current_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_sessions
+            type: gauge
+            value: metric:haproxy_server_max_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.server_limit_sessions
+            type: gauge
+            value: metric:haproxy_server_limit_sessions
+          - key: com.dynatrace.extension.haproxy-prometheus.server_sessions_total.count
+            type: count
+            value: metric:haproxy_server_sessions_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_bytes_in_total.count
+            type: count
+            value: metric:haproxy_server_bytes_in_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_bytes_out_total.count
+            type: count
+            value: metric:haproxy_server_bytes_out_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_responses_denied_total.count
+            type: count
+            value: metric:haproxy_server_responses_denied_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_connection_errors_total.count
+            type: count
+            value: metric:haproxy_server_connection_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_response_errors_total.count
+            type: count
+            value: metric:haproxy_server_response_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_retry_warnings_total.count
+            type: count
+            value: metric:haproxy_server_retry_warnings_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_redispatch_warnings_total.count
+            type: count
+            value: metric:haproxy_server_redispatch_warnings_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_status
+            type: gauge
+            value: metric:haproxy_server_status
+          - key: com.dynatrace.extension.haproxy-prometheus.server_weight
+            type: gauge
+            value: metric:haproxy_server_weight
+          - key: com.dynatrace.extension.haproxy-prometheus.server_check_failures_total.count
+            type: count
+            value: metric:haproxy_server_check_failures_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_check_up_down_total.count
+            type: count
+            value: metric:haproxy_server_check_up_down_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_check_last_change_seconds
+            type: gauge
+            value: metric:haproxy_server_check_last_change_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_downtime_seconds_total.count
+            type: count
+            value: metric:haproxy_server_downtime_seconds_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_queue_limit
+            type: gauge
+            value: metric:haproxy_server_queue_limit
+          - key: com.dynatrace.extension.haproxy-prometheus.server_current_throttle
+            type: gauge
+            value: metric:haproxy_server_current_throttle
+          - key: com.dynatrace.extension.haproxy-prometheus.server_loadbalanced_total.count
+            type: count
+            value: metric:haproxy_server_loadbalanced_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_session_rate
+            type: gauge
+            value: metric:haproxy_server_max_session_rate
+          - key: com.dynatrace.extension.haproxy-prometheus.server_check_status
+            type: gauge
+            value: metric:haproxy_server_check_status
+          - key: com.dynatrace.extension.haproxy-prometheus.server_check_code
+            type: gauge
+            value: metric:haproxy_server_check_code
+          - key: com.dynatrace.extension.haproxy-prometheus.server_check_duration_seconds
+            type: gauge
+            value: metric:haproxy_server_check_duration_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_http_responses_total.count
+            type: count
+            value: metric:haproxy_server_http_responses_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_client_aborts_total.count
+            type: count
+            value: metric:haproxy_server_client_aborts_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_server_aborts_total.count
+            type: count
+            value: metric:haproxy_server_server_aborts_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_last_session_seconds
+            type: gauge
+            value: metric:haproxy_server_last_session_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_queue_time_average_seconds
+            type: gauge
+            value: metric:haproxy_server_queue_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_connect_time_average_seconds
+            type: gauge
+            value: metric:haproxy_server_connect_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_response_time_average_seconds
+            type: gauge
+            value: metric:haproxy_server_response_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_total_time_average_seconds
+            type: gauge
+            value: metric:haproxy_server_total_time_average_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_failed_header_rewriting_total.count
+            type: count
+            value: metric:haproxy_server_failed_header_rewriting_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_connection_attempts_total.count
+            type: count
+            value: metric:haproxy_server_connection_attempts_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_connection_reuses_total.count
+            type: count
+            value: metric:haproxy_server_connection_reuses_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_idle_connections_current
+            type: gauge
+            value: metric:haproxy_server_idle_connections_current
+          - key: com.dynatrace.extension.haproxy-prometheus.server_idle_connections_limit
+            type: gauge
+            value: metric:haproxy_server_idle_connections_limit
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_queue_time_seconds
+            type: gauge
+            value: metric:haproxy_server_max_queue_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_connect_time_seconds
+            type: gauge
+            value: metric:haproxy_server_max_connect_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_response_time_seconds
+            type: gauge
+            value: metric:haproxy_server_max_response_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_max_total_time_seconds
+            type: gauge
+            value: metric:haproxy_server_max_total_time_seconds
+          - key: com.dynatrace.extension.haproxy-prometheus.server_internal_errors_total.count
+            type: count
+            value: metric:haproxy_server_internal_errors_total
+          - key: com.dynatrace.extension.haproxy-prometheus.server_unsafe_idle_connections_current
+            type: gauge
+            value: metric:haproxy_server_unsafe_idle_connections_current
+          - key: com.dynatrace.extension.haproxy-prometheus.server_safe_idle_connections_current
+            type: gauge
+            value: metric:haproxy_server_safe_idle_connections_current
+          - key: com.dynatrace.extension.haproxy-prometheus.server_used_connections_current
+            type: gauge
+            value: metric:haproxy_server_used_connections_current
+          - key: com.dynatrace.extension.haproxy-prometheus.server_need_connections_current
+            type: gauge
+            value: metric:haproxy_server_need_connections_current
+          - key: com.dynatrace.extension.haproxy-prometheus.server_uweight
+            type: gauge
+            value: metric:haproxy_server_uweight
+      - subgroup: redundant
+        metrics:
+          - key: com.dynatrace.extension.haproxy-prometheus.frontend_max_sessions
+            type: gauge
+            value: metric:haproxy_frontend_max_sessions
+topology:
+  types:
+    - name: haproxy-prometheus:server
+      displayName: "HAProxy Server"
+      rules:
+        - idPattern: "haproxy-prometheus_server_{device}_{server}"
+          instanceNamePattern: "{device}_{server}"
+          sources:
+            - sourceType: Metrics
+              condition: "$prefix(com.dynatrace.extension.haproxy-prometheus.server)"
+          requiredDimensions:
+            - key: server
+            - key: proxy
+            - key: device
+          attributes:
+            - key: server_name
+              displayName: ServerName
+              pattern: "{server}"
+            - key: backend
+              displayName: Backend
+              pattern: "{proxy}"
+            - key: device
+              displayName: Device
+              pattern: "{device}"
+          role: default
+    - name: haproxy-prometheus:backend
+      displayName: "HAProxy Backend"
+      rules:
+        - idPattern: "haproxy-prometheus_backend_{device}_{proxy}"
+          instanceNamePattern: "{device}_{proxy}"
+          sources:
+            - sourceType: Metrics
+              condition: "$prefix(com.dynatrace.extension.haproxy-prometheus.backend)"
+          requiredDimensions:
+            - key: proxy
+            - key: device
+          attributes:
+            - key: backend
+              displayName: Backend
+              pattern: "{proxy}"
+            - key: device
+              displayName: Device
+              pattern: "{device}"
+          role: default
+    - name: haproxy-prometheus:frontend
+      displayName: "HAProxy Frontend"
+      rules:
+        - idPattern: "haproxy-prometheus_backend_{device}_{proxy}"
+          instanceNamePattern: "{device}_{proxy}"
+          sources:
+            - sourceType: Metrics
+              condition: "$prefix(com.dynatrace.extension.haproxy-prometheus.frontend)"
+          requiredDimensions:
+            - key: proxy
+            - key: device
+          attributes:
+            - key: frontend
+              displayName: Frontend
+              pattern: "{proxy}"
+            - key: device
+              displayName: Device
+              pattern: "{device}"
+          role: default
+
+screens:
+  - entityType: haproxy-prometheus:server
+    listSettings:
+      staticContent:
+        showGlobalFilter: true
+        header:
+          title: "Haproxy Server Instances"
+          description: "Overview of all Serves in Haproxy"
+          icon: haproxy
+      layout:
+        autoGenerate: false
+        cards:
+          - key: server-list
+            type: ENTITIES_LIST
+    propertiesCard:
+      displayOnlyConfigured: true
+      properties:
+        - type: ATTRIBUTE
+          attribute:
+            key: backend
+            displayName: Backend
+        - type: ATTRIBUTE
+          attribute:
+            key: server_name
+            displayName: Server Name
+        - type: ATTRIBUTE
+          attribute:
+            key: device
+            displayName: Device
+    detailsSettings:
+      staticContent:
+        breadcrumbs:
+          - type: ENTITY_LIST_REF
+            entityType: haproxy-prometheus:server
+        showProblems: true
+        showProperties: true
+        showAddTag: true
+        showTags: true
+        showGlobalFilter: true
+      layout:
+        autoGenerate: false
+        cards:
+          - key: "server-through"
+            type: "CHART_GROUP"
+          - key: "server-request"
+            type: "CHART_GROUP"
+          - key: "server-times"
+            type: "CHART_GROUP"
+          - key: "server-sessions"
+            type: "CHART_GROUP"
+          - key: "server-health"
+            type: "CHART_GROUP"
+          - key: "server-status"
+            type: "CHART_GROUP"
+    chartsCards:
+      - key: "server-through"
+        displayName: "Throughtput/Connections"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Incoming/Outgoing bytes"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_bytes_in_total.count:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_bytes_out_total.count:splitBy(server)"
+          - displayName: "Connections"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_used_connections_current:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_idle_connections_current:splitBy(server)"
+          - displayName: "Connections attemps / error"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_connection_attempts_total.count:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_connection_errors_total.count:splitBy(server)"
+          - displayName: "Number of connections reuses"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_connection_reuses_total.count:splitBy(server)"
+          - displayName: "Idle connections"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_idle_connections_current:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_idle_connections_limit:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_safe_idle_connections_current:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_unsafe_idle_connections_current:splitBy(server)"
+      - key: "server-request"
+        displayName: "Requests/Responses/Queues"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "HTTP responses denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_responses_denied_total.count"
+          - displayName: "Error / Redispatch / Retry"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_redispatch_warnings_total.count:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_retry_warnings_total.count:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_response_errors_total.count:splitBy(server)"
+          - displayName: "Queued requests"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_current_queue"
+          - displayName: "Max queued requests and limit"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_queue"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_queue_limit"
+      - key: "server-times"
+        displayName: "Times"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Average connection time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_connect_time_average_seconds"
+          - displayName: "Max connection time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_connect_time_seconds"
+          - displayName: "Average response time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_response_time_average_seconds"
+          - displayName: "Max response time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_response_time_seconds"
+          - displayName: "Average total time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_total_time_average_seconds"
+          - displayName: "Max total time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_total_time_seconds"
+          - displayName: "Average queue time for last 1024 successful connections"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_queue_time_average_seconds"
+          - displayName: "Max queue time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_queue_time_seconds"
+      - key: "server-sessions"
+        displayName: "Sessions"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Number of active sessions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_current_sessions:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_sessions_total.count:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_sessions:splitBy(server)"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_limit_sessions:splitBy(server)"
+          - displayName: "Failed header rewriting warnings"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_failed_header_rewriting_total.count"
+          - displayName: "Number of sessions per second and limit"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_max_session_rate"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_limit_sessions"
+      - key: "server-health"
+        displayName: "Health and Weight"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Service weight"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_weight"
+          - displayName: "Users weight"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_uweight"
+          - displayName: "UP->DOWN transitions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_check_up_down_total.count"
+          - displayName: "Checks failures"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_check_failures_total.count"
+          - displayName: "Checks duration"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_check_duration_seconds"
+          - displayName: "Throttle percentage"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_current_throttle"
+          - displayName: "Number of seconds since last session assigned to server/backend"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_last_session_seconds"
+      - key: "server-status"
+        displayName: "Status"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Status"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_status:splitBy()"
+          - displayName: "Internal errors"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.server_internal_errors_total.count:splitBy()"
+          - displayName: "Failed DNS resolutions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: AREA
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.process_failed_resolutions.count:splitBy()"
+    entitiesListCards:
+      - key: server-list
+        displayName: "Haproxy server list"
+        pageSize: 5
+        displayCharts: false
+        displayIcons: true
+        enableDetailsExpandability: true
+        numberOfVisibleCharts: 2
+  - entityType: haproxy-prometheus:backend
+    listSettings:
+      staticContent:
+        showGlobalFilter: true
+        header:
+          title: "Haproxy Backend Instances"
+          description: "Overview of all Backends in Haproxy"
+          icon: haproxy
+      layout:
+        autoGenerate: false
+        cards:
+          - key: backend-list
+            type: ENTITIES_LIST
+    propertiesCard:
+      displayOnlyConfigured: true
+      properties:
+        - type: ATTRIBUTE
+          attribute:
+            key: backend
+            displayName: Backend
+        - type: ATTRIBUTE
+          attribute:
+            key: device
+            displayName: Device
+    detailsSettings:
+      staticContent:
+        breadcrumbs:
+          - type: ENTITY_LIST_REF
+            entityType: haproxy-prometheus:backend
+        showProblems: true
+        showProperties: true
+        showAddTag: true
+        showTags: true
+        showGlobalFilter: true
+      layout:
+        autoGenerate: false
+        cards:
+          - key: "backend-connections"
+            type: "CHART_GROUP"
+          - key: "backend-queues"
+            type: "CHART_GROUP"
+          - key: "backend-requests-responses"
+            type: "CHART_GROUP"
+          - key: "backend-times"
+            type: "CHART_GROUP"
+          - key: "backend-resp-http"
+            type: "CHART_GROUP"
+          - key: "backend-sessions"
+            type: "CHART_GROUP"
+          - key: "backend-health"
+            type: "CHART_GROUP"
+          - key: "backend-cache"
+            type: "CHART_GROUP"
+          - key: "backend-status"
+            type: "CHART_GROUP"
+    chartsCards:
+      - key: "backend-connections"
+        displayName: "Throughtput/Connections"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "Connections attempts / errors"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_bytes_in_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_bytes_out_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Connections successful / denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_connection_attempts_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_connection_errors_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Connections reuses"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_connection_reuses_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-queues"
+        displayName: "Queues"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Queued requests not assigned to any server"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_current_queue:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Max queued requests not assigned to any server"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_queue:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-requests-responses"
+        displayName: "Requests / Responses"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "HTTP requests OK / Denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_requests_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_requests_denied_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "HTTP responses denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_responses_denied_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Error / Redispatch / Retry"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_redispatch_warnings_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_retry_warnings_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_response_errors_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-times"
+        displayName: "Times"
+        numberOfVisibleCharts: 4
+        charts:
+          - displayName: "Avg connection time / Max connection time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_response_time_average_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_connect_time_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Avg. total time / Max total time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_total_time_average_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_total_time_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Avg. response time / Max response time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_response_time_average_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_response_time_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Avg. queue time / Max queue time"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_queue_time_average_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_queue_time_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-resp-http"
+        displayName: "Responses by HTTP code"
+        numberOfVisibleCharts: 1
+        charts:
+          - displayName: "HTTP responses code"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_responses_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-sessions"
+        displayName: "Number of sessions"
+        numberOfVisibleCharts: 6
+        charts:
+          - displayName: "Number of sessions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_sessions_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_current_sessions:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Maximum observed number of active sessions and limit"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_sessions:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_limit_sessions:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Maximum observed number of sessions per second"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_max_session_rate:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Failed header rewriting warnings"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_failed_header_rewriting_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Last session assigned"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_last_session_seconds:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Data transfers aborted"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_client_aborts_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_server_aborts_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-health"
+        displayName: "Health and Weight"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "UP->DOWN transitions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_check_up_down_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Service weight"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_weight:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Service user weight"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_uweight:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-cache"
+        displayName: "Cache / Compressor"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "Cache lookups / hits"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_cache_lookups_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_cache_hits_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Compressor"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_in_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_out_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_comp_bytes_bypassed_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Responses compressed"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_http_comp_responses_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+      - key: "backend-status"
+        displayName: "Status"
+        numberOfVisibleCharts: 4
+        charts:
+          - displayName: "Status"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_status:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Internal errors"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_internal_errors_total.count:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Active servers"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_active_servers:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+          - displayName: "Backup servers"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.backend_backup_servers:splitBy(\"dt.entity.haproxy-prometheus:backend\")"
+    entitiesListCards:
+      - key: backend-list
+        displayName: "Haproxy backend list"
+        pageSize: 5
+        displayCharts: false
+        displayIcons: true
+        enableDetailsExpandability: true
+        numberOfVisibleCharts: 2
+  - entityType: haproxy-prometheus:frontend
+    listSettings:
+      staticContent:
+        showGlobalFilter: true
+        header:
+          title: "Haproxy Frontend Instances"
+          description: "Overview of all Frontend in Haproxy"
+          icon: haproxy
+      layout:
+        autoGenerate: false
+        cards:
+          - key: frontend-list
+            type: ENTITIES_LIST
+    propertiesCard:
+      displayOnlyConfigured: true
+      properties:
+        - type: ATTRIBUTE
+          attribute:
+            key: frontend
+            displayName: Frontend
+        - type: ATTRIBUTE
+          attribute:
+            key: device
+            displayName: Device
+    detailsSettings:
+      staticContent:
+        breadcrumbs:
+          - type: ENTITY_LIST_REF
+            entityType: haproxy-prometheus:frontend
+        showProblems: true
+        showProperties: true
+        showAddTag: true
+        showTags: true
+        showGlobalFilter: true
+      layout:
+        autoGenerate: false
+        cards:
+          - key: "frontend-connections"
+            type: "CHART_GROUP"
+          - key: "frontend-requests-responses"
+            type: "CHART_GROUP"
+          - key: "frontend-resp-http"
+            type: "CHART_GROUP"
+          - key: "frontend-sessions"
+            type: "CHART_GROUP"
+          - key: "frontend-cache"
+            type: "CHART_GROUP"
+          - key: "frontend-status"
+            type: "CHART_GROUP"
+    chartsCards:
+      - key: "frontend-connections"
+        displayName: "Throughtput/Connections"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "Connections attempts / errors"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_bytes_in_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_bytes_out_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Connections successful / denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_connections_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_denied_connections_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Maximum observed number of connections per second"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_connections_rate_max:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+      - key: "frontend-requests-responses"
+        displayName: "Requests / Responses"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "HTTP requests OK / Error / Denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_request_errors_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_requests_denied_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "HTTP responses denied"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_responses_denied_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Maximum observed number of HTTP requests per second"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_rate_max:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+      - key: "frontend-resp-http"
+        displayName: "Responses by HTTP code"
+        numberOfVisibleCharts: 1
+        charts:
+          - displayName: "HTTP responses code"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_responses_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+      - key: "frontend-sessions"
+        displayName: "Number of sessions"
+        numberOfVisibleCharts: 5
+        charts:
+          - displayName: "Number of sessions"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_sessions_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_denied_sessions_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_current_sessions:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Maximum observed number of active sessions and limit"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_max_sessions:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_limit_sessions:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Maximum observed number of sessions per second and limit"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_max_sessions:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Failed header rewriting warnings"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_failed_header_rewriting_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Maximum observed number of HTTP requests per second"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_requests_rate_max:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+      - key: "frontend-cache"
+        displayName: "Cache / Compressor"
+        numberOfVisibleCharts: 3
+        charts:
+          - displayName: "Cache lookups / hits"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_cache_lookups_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_cache_hits_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Compressor"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_in_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_out_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_bytes_bypassed_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Responses compressed"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_http_comp_responses_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+      - key: "frontend-status"
+        displayName: "Status"
+        numberOfVisibleCharts: 2
+        charts:
+          - displayName: "Status"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_status:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+          - displayName: "Internal errors"
+            visualization:
+              themeColor: DEFAULT
+              seriesType: LINE
+            metrics:
+              - metricSelector: "com.dynatrace.extension.haproxy-prometheus.frontend_internal_errors_total.count:splitBy(\"dt.entity.haproxy-prometheus:frontend\")"
+    entitiesListCards:
+      - key: frontend-list
+        displayName: "Haproxy frontend list"
+        pageSize: 5
+        displayCharts: false
+        displayIcons: true
+        enableDetailsExpandability: true
+        numberOfVisibleCharts: 2
+
+
