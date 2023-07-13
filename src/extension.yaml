@@ -1,5 +1,5 @@
 name: custom:com.dynatrace.extension.haproxy-prometheus
-version: 1.0.3
+version: 1.0.4
 minDynatraceVersion: "1.230"
 author:
   name: Dynatrace
@@ -1666,15 +1666,11 @@ topology:
               condition: "$prefix(com.dynatrace.extension.haproxy-prometheus.server)"
           requiredDimensions:
             - key: server
-            - key: proxy
             - key: device
           attributes:
             - key: server_name
               displayName: ServerName
               pattern: "{server}"
-            - key: backend
-              displayName: Backend
-              pattern: "{proxy}"
             - key: device
               displayName: Device
               pattern: "{device}"
@@ -1682,18 +1678,14 @@ topology:
     - name: haproxy-prometheus:backend
       displayName: "HAProxy Backend"
       rules:
-        - idPattern: "haproxy-prometheus_backend_{device}_{proxy}"
-          instanceNamePattern: "{device}_{proxy}"
+        - idPattern: "haproxy-prometheus_backend_{device}"
+          instanceNamePattern: "{device}"
           sources:
             - sourceType: Metrics
               condition: "$prefix(com.dynatrace.extension.haproxy-prometheus.backend)"
           requiredDimensions:
-            - key: proxy
             - key: device
           attributes:
-            - key: backend
-              displayName: Backend
-              pattern: "{proxy}"
             - key: device
               displayName: Device
               pattern: "{device}"
@@ -1701,18 +1693,14 @@ topology:
     - name: haproxy-prometheus:frontend
       displayName: "HAProxy Frontend"
       rules:
-        - idPattern: "haproxy-prometheus_backend_{device}_{proxy}"
-          instanceNamePattern: "{device}_{proxy}"
+        - idPattern: "haproxy-prometheus_backend_{device}"
+          instanceNamePattern: "{device}"
           sources:
             - sourceType: Metrics
               condition: "$prefix(com.dynatrace.extension.haproxy-prometheus.frontend)"
           requiredDimensions:
-            - key: proxy
             - key: device
           attributes:
-            - key: frontend
-              displayName: Frontend
-              pattern: "{proxy}"
             - key: device
               displayName: Device
               pattern: "{device}"
@@ -1735,10 +1723,6 @@ screens:
     propertiesCard:
       displayOnlyConfigured: true
       properties:
-        - type: ATTRIBUTE
-          attribute:
-            key: backend
-            displayName: Backend
         - type: ATTRIBUTE
           attribute:
             key: server_name
